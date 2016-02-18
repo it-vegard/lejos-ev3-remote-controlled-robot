@@ -6,28 +6,21 @@ import no.itera.lego.util.BinaryHelper;
 import no.itera.lego.util.LastState;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
-
-import static no.itera.lego.model.RobotState.PORT;
 
 public class ServerSocketThread implements Runnable {
 
 	private LastState LastState;
 	private RobotState robotState;
 
-
 	public ServerSocketThread(RobotState robotState, LastState LastState) {
 		this.robotState = robotState;
 		this.LastState = LastState;
 	}
 
-
 	@Override
 	public void run() {
-		try {
-			ServerSocket cmdSock = new ServerSocket(PORT);
-			Socket s = cmdSock.accept();
+		/*try {
 
 			int pos = s.getInputStream().read();
 			while (robotState.shouldRun && pos > 0) {
@@ -39,12 +32,11 @@ public class ServerSocketThread implements Runnable {
 			}
 			robotState.shouldRun = false;
 			s.close();
-			cmdSock.close();
 		} catch (IOException e) {
 			robotState.shouldRun = false;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		robotState.latch.countDown();
 	}
 
